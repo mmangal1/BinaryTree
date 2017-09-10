@@ -46,6 +46,12 @@ bool isValid(Node* root){
                                 isValidTree.push(curr->right);
                         }
 
+			if(isValidTree.front()){
+				if((isValidTree.front() % 2 != 0) && (!(isValidTree.front()->value < curr->value))){
+					return false;
+				}
+			}
+
 
                 }
                 else{                           //current node is even
@@ -61,7 +67,14 @@ bool isValid(Node* root){
                                 }
                                 isValidTree.push(curr->right);
                         }
+			
+			if(isValidTree.front()){
+				if((isValidTree.front() % 2 == 0) && (!(isValidTree.front()->value > curr->value))){
+					return false;
+				}
+			}
 
                 }
         }
+	return true;
 }
