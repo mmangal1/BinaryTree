@@ -49,19 +49,7 @@ bool isValid(Node* root){
 		if(!isValidNode(curr)){
 			return false;
 		}
-		
-		
-		if(isValidTree.front())
-		{
-			if((isValidTree.front()->value % 2 != 0) && (!(isValidTree.front()->value < curr->value)))
-			{
-				return false;
-			}
-			else if((isValidTree.front()->value % 2 == 0) && (!(isValidTree.front()->value > curr->value)))
-			{
-				return false;
-			}
-		}
+			
 		isValidTree.push(curr->left);
 		isValidTree.push(curr->right);
 	}
@@ -74,9 +62,22 @@ bool isValidNode(Node* curr){
 		if(curr->value%2 == 0){
 			return false;
 		}
+		if(isValidTree.front()){
+			if((isValidTree.front()->value % 2 != 0) && (!(isValidTree.front()->value < curr->value)))
+			{
+				return false;
+			}
+			
+		}
 	}else{
 		if(curr->value%2 != 0){
 			return false;
+		}
+		if(isValidTree.front(){
+			if((isValidTree.front()->value % 2 == 0) && (!(isValidTree.front()->value > curr->value)))
+			{
+				return false;
+			}
 		}
 	}
 	return true;
