@@ -32,48 +32,55 @@ bool isValid(Node* root){
 
         while(!(isValidTree.empty())){
                 curr = isValidTree.pop();
-                if(curr->value %2 != 0){        //current node is odd
-                        if(curr->left){
-                                if(!(curr->left->value %2 == 0)){
-                                        return false;
-                                }
-                                isValidTree.push(curr->left);
-                        }
-                        if(curr->right){
-                                if(!(curr->right->value %2 == 0)){
-                                        return false;
-                                }
-                                isValidTree.push(curr->right);
-                        }
-
-			if(isValidTree.front()){
-				if((isValidTree.front() % 2 != 0) && (!(isValidTree.front()->value < curr->value))){
-					return false;
-				}
+                if(!curr)
+		{
+			continue;
+		}
+                if(curr->value %2 != 0)
+		{        //current node is odd
+			if(!(curr->left->value %2 == 0))
+			{
+				return false;
 			}
-
-
-                }
-                else{                           //current node is even
-                        if(curr->left){
-                                if(!(curr->left->value %2 != 0)){
-                                        return false;
-                                }
-                                isValidTree.push(curr->left);
-                        }
-                        if(curr->right){
-                                if(!(curr->right->value %2 != 0)){
-                                        return false;
-                                }
-                                isValidTree.push(curr->right);
-                        }
+			isValidTree.push(curr->left);
 			
-			if(isValidTree.front()){
-				if((isValidTree.front() % 2 == 0) && (!(isValidTree.front()->value > curr->value))){
+			if(!(curr->right->value %2 == 0))
+			{
+				return false;
+			}
+			isValidTree.push(curr->right);
+
+			if(isValidTree.front())
+			{
+				if((isValidTree.front() % 2 != 0) && (!(isValidTree.front()->value < curr->value)))
+				{
 					return false;
 				}
 			}
-
+                }
+                else
+		{                           //current node is even
+			if(!(curr->left->value %2 != 0))
+			{
+				return false;
+			}
+			
+			isValidTree.push(curr->left);
+                   
+			if(!(curr->right->value %2 != 0))
+			{
+				return false;
+			}
+			
+			isValidTree.push(curr->right);
+                        
+			if(isValidTree.front())
+			{
+				if((isValidTree.front() % 2 == 0) && (!(isValidTree.front()->value > curr->value)))
+				{
+					return false;
+				}
+			}
                 }
         }
 	return true;
