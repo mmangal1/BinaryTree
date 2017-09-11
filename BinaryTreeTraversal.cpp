@@ -1,6 +1,8 @@
 #include <iostream>
 #include <queue>
 
+queue <Node*> isValidTree;
+
 void traversalBFS(Node* root){
         queue <Node*> binary_tree;
         binary_tree.push(root);
@@ -28,7 +30,6 @@ void traversalDFS(Node* root){
 }
 
 bool isValid(Node* root){
-        queue <Node*> isValidTree;
 
 	if(root && root->value %2 == 0){
 		return false;
