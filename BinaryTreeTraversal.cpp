@@ -4,14 +4,15 @@
 void traversalBFS(Node* root){
         queue <Node*> binary_tree;
         binary_tree.push(root);
-
+	Node* curr;
         while(!(binary_tree.empty())){
                 curr = binary_tree.pop();
+		if(!curr){
+			continue;
+		}
                 cout << curr->value << " ";
-                if(curr->left)
-                        binary_tree.push(curr->left);
-                if(curr->right)
-                        binary_tree.push(curr->right);
+                binary_tree.push(curr->left);
+                binary_tree.push(curr->right);
         }
 
 }
@@ -28,60 +29,56 @@ void traversalDFS(Node* root){
 
 bool isValid(Node* root){
         queue <Node*> isValidTree;
-        isValidTree.push(root);
+
+	if(root && root->value %2 == 0){
+		return false;
+	}
+
+	Node* curr = root;
+	isValidTree.push(curr->left);
+	isValidTree.push(curr->right);
 
         while(!(isValidTree.empty())){
                 curr = isValidTree.pop();
-                if(!curr)
+
+		if(!curr)
 		{
 			continue;
 		}
-                if(curr->value %2 != 0)
-		{        //current node is odd
-			if(!(curr->left->value %2 == 0))
-			{
-				return false;
-			}
-			isValidTree.push(curr->left);
-			
-			if(!(curr->right->value %2 == 0))
-			{
-				return false;
-			}
-			isValidTree.push(curr->right);
 
-			if(isValidTree.front())
-			{
-				if((isValidTree.front() % 2 != 0) && (!(isValidTree.front()->value < curr->value)))
-				{
-					return false;
-				}
-			}
-                }
-                else
-		{                           //current node is even
-			if(!(curr->left->value %2 != 0))
+		if(!isValidNode(curr)){
+			return false;
+		}
+		
+		
+		if(isValidTree.front())
+		{
+			if((isValidTree.front()->value % 2 != 0) && (!(isValidTree.front()->value < curr->value)))
 			{
 				return false;
 			}
-			
-			isValidTree.push(curr->left);
-                   
-			if(!(curr->right->value %2 != 0))
+			else if((isValidTree.front()->value % 2 == 0) && (!(isValidTree.front()->value > curr->value)))
 			{
 				return false;
 			}
-			
-			isValidTree.push(curr->right);
-                        
-			if(isValidTree.front())
-			{
-				if((isValidTree.front() % 2 == 0) && (!(isValidTree.front()->value > curr->value)))
-				{
-					return false;
-				}
-			}
-                }
-        }
+		}
+		isValidTree.push(curr->left);
+		isValidTree.push(curr->right);
+	}
 	return true;
+}
+
+
+bool isValidNode(Node* curr){
+	if(curr->parent->value %2 == 0){
+		if(curr->value%2 == 0){
+			return false;
+		}
+	}else{
+		if(curr->value%2 != 0){
+			return false;
+		}
+	}
+	return true;
+
 }
